@@ -3,10 +3,13 @@ version: "1.0"
 commands:
   - name: Install bun
     run: curl -fsSL https://bun.sh/install | bash
-    timeout: 60
+    timeout: 30
   - name: Install dependencies
     run: bun install
-    timeout: 60
+    timeout: 30
+  - name: Source .bash_profile
+    run: source /home/vercel-sandbox/.bash_profile
+    timeout: 30
   - name: Run dev
     run: nohup bun run dev > dev.log 2>&1 &
-    timeout: 60
+    timeout: 30
