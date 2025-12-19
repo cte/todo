@@ -1,33 +1,27 @@
-import * as React from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { PlusIcon } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export function Calculator() {
-  const [result, setResult] = React.useState<number | null>(null)
-
-  const calculate = () => {
-    setResult(1 + 1)
-  }
+  const num1 = 1
+  const num2 = 1
+  const result = num1 + num2
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Simple Calculator</CardTitle>
-        <CardDescription>What is 1 + 1?</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center justify-center gap-4 text-2xl font-semibold">
-          <span>1</span>
-          <PlusIcon className="h-6 w-6" />
-          <span>1</span>
-          <span>=</span>
-          <span className="text-primary">{result !== null ? result : "?"}</span>
-        </div>
-        <Button onClick={calculate} className="w-full">
-          Calculate
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-center">Simple Calculator</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col items-center gap-4">
+            <div className="text-6xl font-bold text-primary">
+              {num1} + {num2} = {result}
+            </div>
+            <p className="text-muted-foreground text-center">
+              The answer to 1+1 is {result}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
