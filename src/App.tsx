@@ -1,7 +1,7 @@
-import { ComponentExample } from "@/components/component-example";
+import { TodoList } from "@/components/todo-list";
 
 export function App() {
-return <ComponentExample />;
+  return <TodoList />;
 }
 
 export default App;
