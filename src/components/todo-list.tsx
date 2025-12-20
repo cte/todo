@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Trash2, Plus, Check } from "lucide-react"
+import { Trash2, Plus, Check, ChevronDown, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -28,6 +28,7 @@ export function TodoList() {
     return []
   })
   const [inputValue, setInputValue] = useState("")
+  const [showCompleted, setShowCompleted] = useState(false)
 
   // Save todos to localStorage whenever they change
   useEffect(() => {
@@ -99,53 +100,94 @@ export function TodoList() {
           <span>{todos.length} total</span>
         </div>
 
-        {/* Todo List */}
+        {/* Active Tasks */}
         <div className="space-y-2">
           {todos.length === 0 ? (
             <p className="text-center text-muted-foreground py-8">
               No tasks yet. Add one above to get started!
             </p>
           ) : (
-            todos.map((todo) => (
-              <div
-                key={todo.id}
-                className="flex items-center gap-3 p-3 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors"
-              >
-                <button
-                  onClick={() => toggleTodo(todo.id)}
-                  className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-                    todo.completed
-                      ? "bg-primary border-primary"
-                      : "border-muted-foreground hover:border-primary"
-                  }`}
-                  aria-label={
-                    todo.completed ? "Mark as incomplete" : "Mark as complete"
-                  }
-                >
-                  {todo.completed && (
-                    <Check className="h-3 w-3 text-primary-foreground" />
+            <>
+              {activeTodos.length > 0 && (
+                <div className="space-y-2">
+                  {activeTodos.map((todo) => (
+                    <div
+                      key={todo.id}
+                      className="flex items-center gap-3 p-3 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors"
+                    >
+                      <button
+                        onClick={() => toggleTodo(todo.id)}
+                        className="flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors border-muted-foreground hover:border-primary"
+                        aria-label="Mark as complete"
+                      >
+                      </button>
+                      <span className="flex-1 text-foreground">
+                        {todo.text}
+                      </span>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => deleteTodo(todo.id)}
+                        className="flex-shrink-0 text-muted-foreground hover:text-destructive"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        <span className="sr-only">Delete task</span>
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Completed Tasks - Collapsible */}
+              {completedTodos.length > 0 && (
+                <div className="mt-4">
+                  <button
+                    onClick={() => setShowCompleted(!showCompleted)}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-2 w-full"
+                  >
+                    {showCompleted ? (
+                      <ChevronDown className="h-4 w-4" />
+                    ) : (
+                      <ChevronRight className="h-4 w-4" />
+                    )}
+                    <span>
+                      Completed ({completedTodos.length})
+                    </span>
+                  </button>
+
+                  {showCompleted && (
+                    <div className="space-y-2">
+                      {completedTodos.map((todo) => (
+                        <div
+                          key={todo.id}
+                          className="flex items-center gap-3 p-3 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors opacity-75"
+                        >
+                          <button
+                            onClick={() => toggleTodo(todo.id)}
+                            className="flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors bg-primary border-primary"
+                            aria-label="Mark as incomplete"
+                          >
+                            <Check className="h-3 w-3 text-primary-foreground" />
+                          </button>
+                          <span className="flex-1 line-through text-muted-foreground">
+                            {todo.text}
+                          </span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => deleteTodo(todo.id)}
+                            className="flex-shrink-0 text-muted-foreground hover:text-destructive"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                            <span className="sr-only">Delete task</span>
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
                   )}
-                </button>
-                <span
-                  className={`flex-1 ${
-                    todo.completed
-                      ? "line-through text-muted-foreground"
-                      : "text-foreground"
-                  }`}
-                >
-                  {todo.text}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => deleteTodo(todo.id)}
-                  className="flex-shrink-0 text-muted-foreground hover:text-destructive"
-                >
-                  <Trash2 className="h-4 w-4" />
-                  <span className="sr-only">Delete task</span>
-                </Button>
-              </div>
-            ))
+                </div>
+              )}
+            </>
           )}
         </div>
       </CardContent>
