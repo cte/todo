@@ -2,11 +2,11 @@ version: "1.0"
 
 commands:
   - name: Install bun
-    run: curl -fsSL https://bun.sh/install | bash
-    timeout: 30
+    run: mise use bun
+    timeout: 60
   - name: Install dependencies
-    run: ~/.bun/bin/bun install
-    timeout: 30
+    run: bun install
+    timeout: 60
   - name: Run dev
-    run: nohup ~/.bun/bin/bun run dev > dev.log 2>&1 &
-    timeout: 30
+    run: nohup bun dev > dev.log 2>&1 &
+    timeout: 10

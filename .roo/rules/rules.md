@@ -40,8 +40,6 @@ Runs ESLint on the codebase. The project uses:
 - React Hooks plugin
 - React Refresh plugin
 
-Serves the production build from `dist/` directory locally for testing. Must run `bun run build` first.
-
 **Important**: This is a long-running command. Do NOT execute this in automated workflows.
 
 ## Technology Stack
