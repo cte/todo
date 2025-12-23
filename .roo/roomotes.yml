@@ -1,5 +1,9 @@
 version: "1.0"
 
+services:
+  - redis7
+  - postgres16
+
 commands:
   - name: Install bun
     run: mise use bun
