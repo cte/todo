@@ -1,7 +1,7 @@
-import { ComponentExample } from "@/components/component-example";
+import { TodoApp } from "@/components/todo";
 
 export function App() {
-return <ComponentExample />;
+  return <TodoApp />;
 }
 
 export default App;
