@@ -1,7 +1,7 @@
-import { ComponentExample } from "@/components/component-example";
+import { Calculator } from "@/components/calculator";
 
 export function App() {
-return <ComponentExample />;
+  return <Calculator />;
 }
 
 export default App;
