@@ -1,8 +1,6 @@
 version: "1.0"
 
-services:
-  - redis7
-  - postgres16
+port: 5173
 
 commands:
   - name: Install bun
